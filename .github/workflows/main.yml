@@ -1,0 +1,29 @@
+name: Windows Server
+
+on: [push]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Windows Server
+      run: |
+        # Commandes pour installer et configurer le serveur
+        # Par exemple, installer IIS (Internet Information Services)
+        Install-WindowsFeature -name Web-Server -IncludeManagementTools
+
+    - name: Start Windows Server
+      run: |
+        # Commandes pour démarrer le serveur
+        # Par exemple, démarrer le service IIS
+        Start-Service W3SVC
+
+    - name: Test server
+      run: |
+        # Commandes pour tester que le serveur fonctionne correctement
+        # Par exemple, vérifier que le site web par défaut est accessible
+        Invoke-WebRequest -Uri http://localhost -UseBasicParsing
