@@ -1,0 +1,37 @@
+name: Windows Server Performance
+
+on: push
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install dependencies
+      run: |
+        # Installer des outils nécessaires ici
+        choco install -y some-dependency
+
+    - name: Set up Windows Server
+      run: |
+        # Commandes pour configurer le serveur
+        Install-WindowsFeature -name Web-Server -IncludeManagementTools
+
+    - name: Optimize Server Performance
+      run: |
+        # Commandes pour optimiser les performances du serveur
+        Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Services\lanmanserver\parameters' -Name 'SizReqBuf' -Value 65536
+        bcdedit /set increaseuserva 3072
+
+    - name: Start Windows Server
+      run: |
+        # Commandes pour démarrer le serveur
+        Start-Service W3SVC
+
+    - name: Test server
+      run: |
+        # Commandes pour tester que le serveur fonctionne correctement
+        Invoke-WebRequest -Uri http://localhost -UseBasicParsing
