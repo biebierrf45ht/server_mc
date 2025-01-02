@@ -30,4 +30,4 @@ jobs:
     - name: Display public IP
       run: |
         $ip = (Invoke-RestMethod -Uri http://ipinfo.io/ip).Trim()
-        Write-Host "Public IP: $ip"(
+        Write-Host "Public IP: $ip"
