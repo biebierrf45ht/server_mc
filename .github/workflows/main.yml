@@ -21,9 +21,13 @@ jobs:
         # Commandes pour démarrer le serveur
         # Par exemple, démarrer le service IIS
         Start-Service W3SVC
-
+    
     - name: Test server
       run: |
         # Commandes pour tester que le serveur fonctionne correctement
         # Par exemple, vérifier que le site web par défaut est accessible
         Invoke-WebRequest -Uri http://localhost -UseBasicParsing
+    - name: Display public IP
+      run: |
+        $ip = (Invoke-RestMethod -Uri http://ipinfo.io/ip).Trim()
+        Write-Host "Public IP: $ip"(
